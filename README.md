@@ -1,4 +1,4 @@
-# Cypress Skeleton
+# Comboios de Portugal
 
 ---
 
@@ -6,19 +6,27 @@
 
 Clone repository with SSH:
 
-`git clone <replace>`
+```sh
+git clone git@github.com:cjbramble/apprentice.git
+```
 
 Switch to root of project:
 
-`cd <replace>`
+```sh
+cd apprentice
+```
 
 Install package:
 
-`npm install`
+```sh
+npm install
+```
 
 Test install succeded:
 
-`./node_modules/.bin/cypress open`
+```sh
+./node_modules/.bin/cypress open
+```
 
 ---
 
@@ -51,11 +59,15 @@ We use custom Scripts in `package.json` to open Cypress, run all tests, and some
 
 To open Cypress:
 
-`npm run cy:open`
+```sh
+npm run cy:open
+```
 
 To run all tests:
 
-`npm run cy:run`
+```sh
+npm run cy:run
+```
 
 ---
 
@@ -63,11 +75,15 @@ To run all tests:
 
 We're going to let robots do some formatting for us. Enable the git hook for [Prettier](https://prettier.io/) by using a couple of scripts from `package.json`.
 
-`npm run git:hook`
+```sh
+npm run git:hook
+```
 
 Now every time you make a commit the formatter will run. If you wish to run the formatter prior to commit (recommended) then just use the format script.
 
-`npm run format`
+```sh
+npm run format
+```
 
 ## Official Cypress Docs
 
