@@ -15,7 +15,7 @@ describe("Can search for a trip", () => {
         cy.get('[name="textBoxPartida"]')
           .type(departureStation)
 
-          cy.get('[name="textBoxChegada"]')
+        cy.get('[name="textBoxChegada"]')
           .type(arrivalStation)
     })
 })
