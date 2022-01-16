@@ -7,7 +7,6 @@ describe("Can search for a trip", () => {
     it("redirects to Buy Tickets interface", () => {
         cy.visit("/");
 
-        // TODO: Find better element to select
         cy.get(":nth-child(2) > .btn > .desc-menu").click();
         cy.url().should("contain", "/passageiros/en/buy-tickets");
     });
@@ -24,14 +23,15 @@ describe("Can search for a trip", () => {
     });
 
     it("selects departure and arrival locations", () => {
-        // TODO: fix the flakiness by making sure dropdown goes away and move these above date pickers
+        // TODO: move these above date pickers
         cy.get('[name="textBoxPartida"]').type(departureStation).click();
-        cy.get("ul.typeahead.dropdown-menu")
-            .children()
-            .should("contain.text", departureStation);
-        // TODO: fix below validation possibly by iterating down through ul>li of parent classes
+        cy.get(
+            "#searchTimetableForm > .col-md-12 > :nth-child(1) > :nth-child(3)"
+        ).should("contain.text", departureStation);
         cy.get('[name="textBoxChegada"]').type(arrivalStation).click();
-        // cy.get('ul.typeahead.dropdown-menu').children().should('contain.text', arrivalStation)
+        cy.get(
+            "#searchTimetableForm > .col-md-12 > :nth-child(1) > :nth-child(4)"
+        ).should("contain.text", arrivalStation);
     });
 
     it("selects seating class", () => {
@@ -39,7 +39,7 @@ describe("Can search for a trip", () => {
     });
 
     it("redirects to confirmation page", () => {
-        cy.get("p > .btn").click(); // TODO: find better selector
+        cy.get("p > .btn").click();
         cy.url().should("contain", "/bilheteira/comprar/sem-viagens"); // TODO: validate locations and dates too
     });
 
@@ -48,5 +48,5 @@ describe("Can search for a trip", () => {
         cy.url().should("contain", "/passageiros/en/buy-tickets");
 
         // TODO: Validates selections persist after cancel and redirect
-    })
+    });
 });
