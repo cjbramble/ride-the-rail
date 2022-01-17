@@ -23,21 +23,22 @@ describe("Can search for a trip", () => {
     });
 
     it("selects departure and arrival dates", () => {
-        // cy.get('[name="departDate"]').clear().type(departure, `{enter}`); // TODO: stop field from clearing
-        // cy.get('[name="returnDate"]').clear().type(arrival, `{enter}`); // TODO: this isn't typing
+        // cy.get('[name="departDate"]').clear().type("22 March, 2022" + '{enter}', {force: true}); // TODO: stop field from clearing
+        // cy.get('[name="returnDate"]').clear().type("25 March, 2022" + '{enter}', {force: true}); // TODO: this isn't typing
+        
         // TODO: find dynamic method for the following or make above work
         cy.get('[name="departDate"]').click();
         cy.get("#datepicker-first_table")
-            .find(`[data-pick="${1642636800000}"]`)
+            .find(`[data-pick="${1643760000000}"]`)
             .click();
         cy.get('[name="returnDate"]').click();
         cy.get("#datepicker-second_table")
-            .find(`[data-pick="${1643760000000}"]`)
+            .find(`[data-pick="${1644019200000}"]`)
             .click();
     });
 
     it("selects seating class", () => {
-        cy.get("#option1Label").click(); // TODO: validate selection is active
+        cy.get("#option1Label").click().should('have.class', 'active');
     });
 
     it("redirects to confirmation page", () => {
@@ -47,7 +48,7 @@ describe("Can search for a trip", () => {
         // Validation of outward schedule
         cy.get(
             ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(1) > :nth-child(1)"
-        ).should("contain", "Outward: 2022-01-20"); // TODO: make date dynamic
+        ).should("contain", "Outward: 2022-02-02"); // TODO: make date dynamic
         cy.get(
             ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(1) > :nth-child(2)"
         ).should("contain", departureStation);
@@ -58,7 +59,7 @@ describe("Can search for a trip", () => {
         // Validation of inward schedule
         cy.get(
             ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(2) > :nth-child(1)"
-        ).should("contain", "Inward: 2022-02-02"); // TODO: make date dynamic
+        ).should("contain", "Inward: 2022-02-05"); // TODO: make date dynamic
         cy.get(
             ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(2) > :nth-child(2)"
         ).should("contain", arrivalStation);
