@@ -11,19 +11,7 @@ describe("Can search for a trip", () => {
         cy.url().should("contain", "/passageiros/en/buy-tickets");
     });
 
-    it("selects departure and arrival dates", () => {
-        /* TODO: Handle future date calculations
-        edge cases:
-        overlap to upcoming month
-        months have different number of days
-        leap year
-        */
-        cy.get('[name="departDate"]').click();
-        cy.get('[name="returnDate"]').type("31 January, 2022").click();
-    });
-
     it("selects departure and arrival locations", () => {
-        // TODO: move these above date pickers
         cy.get('[name="textBoxPartida"]').type(departureStation).click();
         cy.get(
             "#searchTimetableForm > .col-md-12 > :nth-child(1) > :nth-child(3)"
@@ -34,13 +22,27 @@ describe("Can search for a trip", () => {
         ).should("contain.text", arrivalStation);
     });
 
+    it("selects departure and arrival dates", () => {
+        // cy.get('[name="departDate"]').clear().type(departure, `{enter}`); // TODO: stop field from clearing
+        // cy.get('[name="returnDate"]').clear().type(arrival, `{enter}`); // TODO: this isn't typing
+        // TODO: find dynamic method for the following or make above work
+        cy.get('[name="departDate"]').click();
+        cy.get("#datepicker-first_table")
+            .find(`[data-pick="${1642636800000}"]`)
+            .click();
+        cy.get('[name="returnDate"]').click();
+        cy.get("#datepicker-second_table")
+            .find(`[data-pick="${1643760000000}"]`)
+            .click();
+    });
+
     it("selects seating class", () => {
-        cy.get("#option1Label").click();
+        cy.get("#option1Label").click(); // TODO: validate selection is active
     });
 
     it("redirects to confirmation page", () => {
         cy.get("p > .btn").click();
-        cy.url().should("contain", "/bilheteira/comprar/sem-viagens"); // TODO: validate locations and dates too
+        cy.url().should("contain", "/bilheteira/comprar"); // TODO: validate locations and dates too
     });
 
     it("cancels order and redirects to Buy Tickets page", () => {
