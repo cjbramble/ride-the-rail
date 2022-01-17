@@ -43,6 +43,28 @@ describe("Can search for a trip", () => {
     it("redirects to confirmation page", () => {
         cy.get("p > .btn").click();
         cy.url().should("contain", "/bilheteira/comprar"); // TODO: validate locations and dates too
+
+        // Validation of outward schedule
+        cy.get(
+            ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(1) > :nth-child(1)"
+        ).should("contain", "Outward: 2022-01-20"); // TODO: make date dynamic
+        cy.get(
+            ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(1) > :nth-child(2)"
+        ).should("contain", departureStation);
+        cy.get(
+            ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(1) > :nth-child(3)"
+        ).should("contain", arrivalStation);
+
+        // Validation of inward schedule
+        cy.get(
+            ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(2) > :nth-child(1)"
+        ).should("contain", "Inward: 2022-02-02"); // TODO: make date dynamic
+        cy.get(
+            ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(2) > :nth-child(2)"
+        ).should("contain", arrivalStation);
+        cy.get(
+            ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(2) > :nth-child(3)"
+        ).should("contain", departureStation);
     });
 
     it("cancels order and redirects to Buy Tickets page", () => {
