@@ -2,16 +2,16 @@
 
 const departureStation = "Lagos";
 const arrivalStation = "Porto - Campanha";
+const departureDelay = 3;
+const arrivalDelay = 6;
 
 // Move date picker logic to custom command and paramterize.
-// const departureDelay = 3;
-// const arrivalDelay = 6;
 const date = new Date();
 const dayOfMonth = date.getDate();
-const departureDay = (dayOfMonth + 3);
-const returnDay = (dayOfMonth + 6);
-const year = date.getFullYear()
-const month = date.getMonth()
+const departureDay = dayOfMonth + departureDelay;
+const returnDay = dayOfMonth + arrivalDelay;
+const year = date.getFullYear();
+const month = date.getMonth();
 const departureDateTUC = new Date(Date.UTC(year, month, departureDay, 0, 0, 0));
 const departureDate = departureDateTUC.valueOf();
 const returnDateUTC = new Date(Date.UTC(year, month, returnDay, 0, 0, 0));
@@ -59,7 +59,7 @@ describe("Can search for a trip", () => {
         // Validation of outward schedule
         cy.get(
             ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(1) > :nth-child(1)"
-        ).should("contain", `Outward: ${year}`); // TODO: handle month being represented as single digit
+        ).should("contain", `Outward: ${year}`); // TODO: handle month being represented as single digit to validate entire string
         cy.get(
             ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(1) > :nth-child(2)"
         ).should("contain", departureStation);
@@ -70,7 +70,7 @@ describe("Can search for a trip", () => {
         // Validation of inward schedule
         cy.get(
             ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(2) > :nth-child(1)"
-        ).should("contain", `Inward: ${year}`); // TODO: handle month being represented as single digit
+        ).should("contain", `Inward: ${year}`); // TODO: handle month being represented as single digit to validate entire string
         cy.get(
             ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(2) > :nth-child(2)"
         ).should("contain", arrivalStation);
