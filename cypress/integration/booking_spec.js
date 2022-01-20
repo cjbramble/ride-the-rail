@@ -101,5 +101,6 @@ describe("Can search for a trip", () => {
             `returnDateEscapeXml = '${travelDate(returnDelay)}';`
         );
         cy.document().should("contain.text", `passengerClassSubmit = '1';`);
+        cy.document().should("contain.text", `passengersEscapeXml = '1';`);
     });
 });
