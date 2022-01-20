@@ -5,18 +5,6 @@ const arrivalStation = "Porto - Campanha";
 const departureDelay = 3;
 const arrivalDelay = 6;
 
-// Move date picker logic to custom command and paramterize.
-const date = new Date();
-const dayOfMonth = date.getDate();
-const departureDay = dayOfMonth + departureDelay;
-const returnDay = dayOfMonth + arrivalDelay;
-const year = date.getFullYear();
-const month = date.getMonth();
-const departureDateTUC = new Date(Date.UTC(year, month, departureDay, 0, 0, 0));
-const departureDate = departureDateTUC.valueOf();
-const returnDateUTC = new Date(Date.UTC(year, month, returnDay, 0, 0, 0));
-const returnDate = returnDateUTC.valueOf();
-
 describe("Can search for a trip", () => {
     it("redirects to Buy Tickets interface", () => {
         cy.visit("/");
@@ -39,13 +27,9 @@ describe("Can search for a trip", () => {
     it("selects departure and arrival dates", () => {
         // TODO: find dynamic method for the following or make above work
         cy.get('[name="departDate"]').click();
-        cy.get("#datepicker-first_table")
-            .find(`[data-pick="${departureDate}"]`)
-            .click();
+        cy.setDepartureDate(departureDelay)
         cy.get('[name="returnDate"]').click();
-        cy.get("#datepicker-second_table")
-            .find(`[data-pick="${returnDate}"]`)
-            .click();
+        cy.setReturnDate(arrivalDelay)
     });
 
     it("selects seating class", () => {
@@ -59,7 +43,7 @@ describe("Can search for a trip", () => {
         // Validation of outward schedule
         cy.get(
             ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(1) > :nth-child(1)"
-        ).should("contain", `Outward: ${year}`); // TODO: handle month being represented as single digit to validate entire string
+        ).should("contain", `Outward:`); // TODO: handle date string
         cy.get(
             ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(1) > :nth-child(2)"
         ).should("contain", departureStation);
@@ -70,7 +54,7 @@ describe("Can search for a trip", () => {
         // Validation of inward schedule
         cy.get(
             ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(2) > :nth-child(1)"
-        ).should("contain", `Inward: ${year}`); // TODO: handle month being represented as single digit to validate entire string
+        ).should("contain", `Inward:`); // TODO: handle date string
         cy.get(
             ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(2) > :nth-child(2)"
         ).should("contain", arrivalStation);
