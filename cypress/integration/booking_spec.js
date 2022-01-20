@@ -2,8 +2,8 @@
 
 const departureStation = "Lagos";
 const arrivalStation = "Porto - Campanha";
-const departDateElement = "#datepicker-first_table"
-const returnDateElement = "#datepicker-second_table"
+const departDateElement = "#datepicker-first_table";
+const returnDateElement = "#datepicker-second_table";
 const departureDelay = 3;
 const returnDelay = 6;
 
@@ -69,10 +69,16 @@ describe("Can search for a trip", () => {
         cy.get("#exitButton").click();
         cy.url().should("contain", "/passageiros/en/buy-tickets");
 
-        cy.document().should("contain.text", `departEscapeXml = '${departureStation}';`)
-        cy.document().should("contain.text", `arrivalEscapeXml = '${arrivalStation}';`)
+        cy.document().should(
+            "contain.text",
+            `departEscapeXml = '${departureStation}';`
+        );
+        cy.document().should(
+            "contain.text",
+            `arrivalEscapeXml = '${arrivalStation}';`
+        );
         // cy.document().should("contain.text", `departDateEscapeXml = '2022-01-23';`) // TODO: handle date
         // cy.document().should("contain.text", `returnDateEscapeXml = '2022-01-26';`) // TODO: handle date
-        cy.document().should("contain.text", `passengerClassSubmit = '1';`)
+        cy.document().should("contain.text", `passengerClassSubmit = '1';`);
     });
 });
