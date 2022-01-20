@@ -11,7 +11,7 @@ describe("Can search for a trip", () => {
     it("redirects to Buy Tickets interface", () => {
         cy.visit("/");
 
-        cy.get(":nth-child(2) > .btn > .desc-menu").click(); // TODO: find better css selector
+        cy.get(":nth-child(2) > .btn > .desc-menu").click();
         cy.url().should("contain", "/passageiros/en/buy-tickets");
     });
 
@@ -35,7 +35,7 @@ describe("Can search for a trip", () => {
     });
 
     it("selects seating class", () => {
-        cy.get("#option1Label").click().should("have.class", "active");
+        cy.get("#option1Label").click().should("have.class", "active"); // TODO: add validation
     });
 
     it("redirects to confirmation page", () => {
@@ -45,7 +45,7 @@ describe("Can search for a trip", () => {
         // Validation of outward schedule
         cy.get(
             ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(1) > :nth-child(1)"
-        ).should("contain", `Outward:`); // TODO: handle date string
+        ).should("contain", `Outward:`); // TODO: handle date string for additional validation
         cy.get(
             ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(1) > :nth-child(2)"
         ).should("contain", departureStation);
@@ -56,7 +56,7 @@ describe("Can search for a trip", () => {
         // Validation of inward schedule
         cy.get(
             ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(2) > :nth-child(1)"
-        ).should("contain", `Inward:`); // TODO: handle date string
+        ).should("contain", `Inward:`); // TODO: handle date string for additional validation
         cy.get(
             ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(2) > :nth-child(2)"
         ).should("contain", arrivalStation);
@@ -69,7 +69,10 @@ describe("Can search for a trip", () => {
         cy.get("#exitButton").click();
         cy.url().should("contain", "/passageiros/en/buy-tickets");
 
-        // TODO: Validates selections persist after cancel and redirect
-        // cy.get('[name="textBoxPartida"]').should("contain.text", departureStation); // hidden element? shadow dom?? beelzebub?
+        cy.document().should("contain.text", `departEscapeXml = '${departureStation}';`)
+        cy.document().should("contain.text", `arrivalEscapeXml = '${arrivalStation}';`)
+        // cy.document().should("contain.text", `departDateEscapeXml = '2022-01-23';`) // TODO: handle date
+        // cy.document().should("contain.text", `returnDateEscapeXml = '2022-01-26';`) // TODO: handle date
+        cy.document().should("contain.text", `passengerClassSubmit = '1';`)
     });
 });

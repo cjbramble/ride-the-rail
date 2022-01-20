@@ -35,8 +35,5 @@ Cypress.Commands.add("setTravelDate", (element, input) => {
         Date.UTC(year, month, departureDay, 0, 0, 0)
     );
     const departureDate = departureDateTUC.valueOf();
-    return cy
-        .get(element)
-        .find(`[data-pick="${departureDate}"]`)
-        .click();
+    return cy.get(element).find(`[data-pick="${departureDate}"]`).click();
 });
