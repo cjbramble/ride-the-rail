@@ -7,6 +7,21 @@ const returnDateElement = "#datepicker-second_table";
 const departureDelay = 3;
 const returnDelay = 6;
 
+function travelDate(input) {
+    const date = new Date();
+    const dayOfMonth = date.getDate();
+    const departureDay = dayOfMonth + input;
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const departureDateTUC = new Date(
+        Date.UTC(year, month, departureDay, 0, 0, 0)
+    );
+    const departureDate = departureDateTUC.valueOf();
+    const departureDateObj = new Date(departureDate);
+    const departureISOstring = departureDateObj.toISOString();
+    return departureISOstring.slice(0, 10);
+}
+
 describe("Can search for a trip", () => {
     it("redirects to Buy Tickets interface", () => {
         cy.visit("/");
@@ -40,12 +55,12 @@ describe("Can search for a trip", () => {
 
     it("redirects to confirmation page", () => {
         cy.get("p > .btn").click();
-        cy.url().should("contain", "/bilheteira/comprar"); // TODO: validate locations and dates too
+        cy.url().should("contain", "/bilheteira/comprar"); // TODO: validate locations
 
         // Validation of outward schedule
         cy.get(
             ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(1) > :nth-child(1)"
-        ).should("contain", `Outward:`); // TODO: handle date string for additional validation
+        ).should("contain", `Outward: ${travelDate(departureDelay)}`);
         cy.get(
             ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(1) > :nth-child(2)"
         ).should("contain", departureStation);
@@ -56,7 +71,7 @@ describe("Can search for a trip", () => {
         // Validation of inward schedule
         cy.get(
             ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(2) > :nth-child(1)"
-        ).should("contain", `Inward:`); // TODO: handle date string for additional validation
+        ).should("contain", `Inward: ${travelDate(returnDelay)}`);
         cy.get(
             ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(2) > :nth-child(2)"
         ).should("contain", arrivalStation);
@@ -77,8 +92,14 @@ describe("Can search for a trip", () => {
             "contain.text",
             `arrivalEscapeXml = '${arrivalStation}';`
         );
-        // cy.document().should("contain.text", `departDateEscapeXml = '2022-01-23';`) // TODO: handle date
-        // cy.document().should("contain.text", `returnDateEscapeXml = '2022-01-26';`) // TODO: handle date
+        cy.document().should(
+            "contain.text",
+            `departDateEscapeXml = '${travelDate(departureDelay)}';`
+        );
+        cy.document().should(
+            "contain.text",
+            `returnDateEscapeXml = '${travelDate(returnDelay)}';`
+        );
         cy.document().should("contain.text", `passengerClassSubmit = '1';`);
     });
 });
