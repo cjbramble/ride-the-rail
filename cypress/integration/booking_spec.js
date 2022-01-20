@@ -2,14 +2,16 @@
 
 const departureStation = "Lagos";
 const arrivalStation = "Porto - Campanha";
+const departDateElement = "#datepicker-first_table"
+const returnDateElement = "#datepicker-second_table"
 const departureDelay = 3;
-const arrivalDelay = 6;
+const returnDelay = 6;
 
 describe("Can search for a trip", () => {
     it("redirects to Buy Tickets interface", () => {
         cy.visit("/");
 
-        cy.get(":nth-child(2) > .btn > .desc-menu").click();
+        cy.get(":nth-child(2) > .btn > .desc-menu").click(); // TODO: find better css selector
         cy.url().should("contain", "/passageiros/en/buy-tickets");
     });
 
@@ -25,11 +27,11 @@ describe("Can search for a trip", () => {
     });
 
     it("selects departure and arrival dates", () => {
-        // TODO: find dynamic method for the following or make above work
+        // TODO: add validation
         cy.get('[name="departDate"]').click();
-        cy.setDepartureDate(departureDelay)
+        cy.setTravelDate(departDateElement, departureDelay);
         cy.get('[name="returnDate"]').click();
-        cy.setReturnDate(arrivalDelay)
+        cy.setTravelDate(returnDateElement, returnDelay);
     });
 
     it("selects seating class", () => {
@@ -68,5 +70,6 @@ describe("Can search for a trip", () => {
         cy.url().should("contain", "/passageiros/en/buy-tickets");
 
         // TODO: Validates selections persist after cancel and redirect
+        // cy.get('[name="textBoxPartida"]').should("contain.text", departureStation); // hidden element? shadow dom?? beelzebub?
     });
 });
