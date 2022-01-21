@@ -18,7 +18,8 @@ describe('Can search for a trip', () => {
       .visit('/');
 
     cy
-      .get(':nth-child(2) > .btn > .desc-menu')
+      .get('.title-menu')
+      .contains('Tickets')
       .click();
 
     // Validates redirect url
