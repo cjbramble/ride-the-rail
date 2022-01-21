@@ -36,7 +36,7 @@ describe('Can search for a trip', () => {
       .click();
     
     cy
-      .get('#searchTimetableForm > .col-md-12 > :nth-child(1) > :nth-child(3)')
+      .get(':nth-child(3)')
       .should('contain.text', departureStation);
     
     cy
@@ -45,7 +45,7 @@ describe('Can search for a trip', () => {
       .click();
     
     cy
-      .get('#searchTimetableForm > .col-md-12 > :nth-child(1) > :nth-child(4)')
+      .get(':nth-child(4)')
       .should('contain.text', arrivalStation);
   });
 
