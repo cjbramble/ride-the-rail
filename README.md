@@ -1,4 +1,4 @@
-[![cjbramble](https://circleci.com/github/cjbramble/ride-the-rail.svg?style=svg)](https://app.circleci.com/pipelines/github/cjbramble/ride-the-rail)
+[![cjbramble](https://circleci.com/gh/cjbramble/ride-the-rail.svg?style=svg)](https://app.circleci.com/pipelines/github/cjbramble/ride-the-rail)
 
 # Ride the Rail!
 
