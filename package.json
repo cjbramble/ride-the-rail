@@ -6,7 +6,7 @@
         "format": "prettier --write ."
     },
     "devDependencies": {
-        "cypress": "^8.3.0",
+        "cypress": "^9.2.1",
         "eslint": "^7.29.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-config-standard": "^16.0.3",

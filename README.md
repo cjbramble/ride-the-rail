@@ -1,4 +1,8 @@
-# Cypress Skeleton
+[![cjbramble](https://circleci.com/gh/cjbramble/ride-the-rail.svg?style=svg)](https://app.circleci.com/pipelines/github/cjbramble/ride-the-rail)
+
+# Ride the Rail!
+
+A Cypress test automation demo.
 
 ---
 
@@ -6,19 +10,27 @@
 
 Clone repository with SSH:
 
-`git clone <replace>`
+```sh
+git clone git@github.com:cjbramble/ride-the-rail.git
+```
 
 Switch to root of project:
 
-`cd <replace>`
+```sh
+cd ride-the-rail
+```
 
 Install package:
 
-`npm install`
+```sh
+npm install
+```
 
 Test install succeded:
 
-`./node_modules/.bin/cypress open`
+```sh
+./node_modules/.bin/cypress open
+```
 
 ---
 
@@ -43,31 +55,23 @@ We use custom Scripts in `package.json` to open Cypress, run all tests, and some
 ```json
 "scripts": {
     "cy:open": "cypress open",
-    "cy:run": "cypress run",
-    "git:hook": "husky install",
-    "format": "prettier --write ."
+    "cy:run": "cypress run"
 }
 ```
 
 To open Cypress:
 
-`npm run cy:open`
+```sh
+npm run cy:open
+```
 
 To run all tests:
 
-`npm run cy:run`
+```sh
+npm run cy:run
+```
 
 ---
-
-## Formatter
-
-We're going to let robots do some formatting for us. Enable the git hook for [Prettier](https://prettier.io/) by using a couple of scripts from `package.json`.
-
-`npm run git:hook`
-
-Now every time you make a commit the formatter will run. If you wish to run the formatter prior to commit (recommended) then just use the format script.
-
-`npm run format`
 
 ## Official Cypress Docs
 
