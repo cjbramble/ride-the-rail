@@ -1,9 +1,9 @@
-/// <reference types="cypress" />
+/// <reference types='cypress' />
 
-const departureStation = "Lagos";
-const arrivalStation = "Porto - Campanha";
-const departDateElement = "#datepicker-first_table";
-const returnDateElement = "#datepicker-second_table";
+const departureStation = 'Lagos';
+const arrivalStation = 'Porto - Campanha';
+const departDateElement = '#datepicker-first_table';
+const returnDateElement = '#datepicker-second_table';
 const departureDelay = 3;
 const returnDelay = 6;
 
@@ -22,37 +22,37 @@ function travelDate(input) {
   return departureISOstring.slice(0, 10);
 }
 
-describe("Can search for a trip", () => {
-  it("redirects to Buy Tickets interface", () => {
+describe('Can search for a trip', () => {
+  it('redirects to Buy Tickets interface', () => {
       
-    cy.visit("/");
+    cy.visit('/');
 
-    cy.get(":nth-child(2) > .btn > .desc-menu")
+    cy.get(':nth-child(2) > .btn > .desc-menu')
       .click();
 
     // Validates redirect url
     cy.url()
-      .should("contain", "/passageiros/en/buy-tickets");
+      .should('contain', '/passageiros/en/buy-tickets');
   });
 
-  it("selects departure and arrival locations", () => {
+  it('selects departure and arrival locations', () => {
       
     cy.get('[name="textBoxPartida"]')
       .type(departureStation)
       .click();
     
-    cy.get( "#searchTimetableForm > .col-md-12 > :nth-child(1) > :nth-child(3)")
-      .should("contain.text", departureStation);
+    cy.get('#searchTimetableForm > .col-md-12 > :nth-child(1) > :nth-child(3)')
+      .should('contain.text', departureStation);
     
     cy.get('[name="textBoxChegada"]')
       .type(arrivalStation)
       .click();
     
-    cy.get("#searchTimetableForm > .col-md-12 > :nth-child(1) > :nth-child(4)")
-      .should("contain.text", arrivalStation);
+    cy.get('#searchTimetableForm > .col-md-12 > :nth-child(1) > :nth-child(4)')
+      .should('contain.text', arrivalStation);
   });
 
-  it("selects departure and arrival dates", () => {
+  it('selects departure and arrival dates', () => {
       
     cy.get('[name="departDate"]')
       .click();
@@ -65,14 +65,14 @@ describe("Can search for a trip", () => {
     cy.setTravelDate(returnDateElement, returnDelay);
   });
 
-  it("selects seating class", () => {
+  it('selects seating class', () => {
       
-    cy.get("#option1Label")
+    cy.get('#option1Label')
       .click()
-      .should("have.class", "active");
+      .should('have.class', 'active');
   });
 
-  it("selects number of passengers", () => {
+  it('selects number of passengers', () => {
       
     cy.get('.filter-option')
       .click();
@@ -81,56 +81,56 @@ describe("Can search for a trip", () => {
       .click();
   });
 
-  it("redirects to confirmation page upon submit", () => {
+  it('redirects to confirmation page upon submit', () => {
       
-    cy.get("p > .btn")
+    cy.get('p > .btn')
       .click();
     
     // Validates redirect url
     cy.url()
-      .should("contain", "/bilheteira/comprar");
+      .should('contain', '/bilheteira/comprar');
     
     // Validates the number of passengers
     cy.get('.reserveDiv')
-      .should('contain.text', "3 Passenger(s)")
+      .should('contain.text', '3 Passenger(s)')
 
     // Validation of outward schedule
-    cy.get(".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(1) > :nth-child(1)")
-      .should("contain", `Outward: ${travelDate(departureDelay)}`);
+    cy.get('.info-geral > .row > .col-md-12 > .table > tbody > :nth-child(1) > :nth-child(1)')
+      .should('contain', `Outward: ${travelDate(departureDelay)}`);
     
-    cy.get(".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(1) > :nth-child(2)")
-      .should("contain", departureStation);
+    cy.get('.info-geral > .row > .col-md-12 > .table > tbody > :nth-child(1) > :nth-child(2)')
+      .should('contain', departureStation);
     
-    cy.get(".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(1) > :nth-child(3)")
-      .should("contain", arrivalStation);
+    cy.get('.info-geral > .row > .col-md-12 > .table > tbody > :nth-child(1) > :nth-child(3)')
+      .should('contain', arrivalStation);
 
     // Validation of return schedule
-    cy.get(".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(2) > :nth-child(1)")
-      .should("contain", `Inward: ${travelDate(returnDelay)}`);
+    cy.get('.info-geral > .row > .col-md-12 > .table > tbody > :nth-child(2) > :nth-child(1)')
+      .should('contain', `Inward: ${travelDate(returnDelay)}`);
     
-    cy.get(".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(2) > :nth-child(2)")
-      .should("contain", arrivalStation);
+    cy.get('.info-geral > .row > .col-md-12 > .table > tbody > :nth-child(2) > :nth-child(2)')
+      .should('contain', arrivalStation);
     
-    cy.get(".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(2) > :nth-child(3)")
-      .should("contain", departureStation);
+    cy.get('.info-geral > .row > .col-md-12 > .table > tbody > :nth-child(2) > :nth-child(3)')
+      .should('contain', departureStation);
   });
 
-  it("cancels order and redirects to Buy Tickets page with previous data visible", () => {
+  it('cancels order and redirects to Buy Tickets page with previous data visible', () => {
       
-    cy.get("#exitButton")
+    cy.get('#exitButton')
       .click();
     
     // Validates redirect url
     cy.url()
-      .should("contain", "/passageiros/en/buy-tickets");
+      .should('contain', '/passageiros/en/buy-tickets');
 
     // Validates times, stations, class, and passenger
     cy.document()
-      .should("contain.text", `departEscapeXml = '${departureStation}';`)
-      .should("contain.text", `arrivalEscapeXml = '${arrivalStation}';`)
-      .should("contain.text", `departDateEscapeXml = '${travelDate(departureDelay)}';`)
-      .should("contain.text", `returnDateEscapeXml = '${travelDate(returnDelay)}';`)
-      .should("contain.text", `passengerClassSubmit = '1';`)
-      .should("contain.text", `passengersEscapeXml = '3';`);
+      .should('contain.text', `departEscapeXml = '${departureStation}';`)
+      .should('contain.text', `arrivalEscapeXml = '${arrivalStation}';`)
+      .should('contain.text', `departDateEscapeXml = '${travelDate(departureDelay)}';`)
+      .should('contain.text', `returnDateEscapeXml = '${travelDate(returnDelay)}';`)
+      .should('contain.text', `passengerClassSubmit = '1';`)
+      .should('contain.text', `passengersEscapeXml = '3';`);
   });
 });
