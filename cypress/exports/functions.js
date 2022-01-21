@@ -1,11 +1,13 @@
 /// <reference types='cypress' />
 
+import {
+    dayOfMonth,
+    year,
+    month
+} from '../exports/constants.js'
+
 function travelDate(input) {
-    const date = new Date();
-    const dayOfMonth = date.getDate();
     const departureDay = dayOfMonth + input;
-    const year = date.getFullYear();
-    const month = date.getMonth();
     const departureDateTUC = new Date(
         Date.UTC(year, month, departureDay, 0, 0, 0)
     );
