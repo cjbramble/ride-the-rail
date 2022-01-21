@@ -1,5 +1,6 @@
+/// <reference types='cypress' />
+
 Cypress.Commands.add("setTravelDate", (element, input) => {
-    // TODO: namespace and js doc
     const date = new Date();
     const dayOfMonth = date.getDate();
     const departureDay = dayOfMonth + input;
