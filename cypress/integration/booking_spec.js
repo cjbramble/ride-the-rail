@@ -7,22 +7,9 @@ import {
   returnDateElement,
   departureDelay,
   returnDelay
-} from "../constants/constants.js"
+} from '../exports/constants.js'
 
-function travelDate(input) {
-  const date = new Date();
-  const dayOfMonth = date.getDate();
-  const departureDay = dayOfMonth + input;
-  const year = date.getFullYear();
-  const month = date.getMonth();
-  const departureDateTUC = new Date(
-      Date.UTC(year, month, departureDay, 0, 0, 0)
-  );
-  const departureDate = departureDateTUC.valueOf();
-  const departureDateObj = new Date(departureDate);
-  const departureISOstring = departureDateObj.toISOString();
-  return departureISOstring.slice(0, 10);
-}
+import travelDate from '../exports/functions.js'
 
 describe('Can search for a trip', () => {
   it('redirects to Buy Tickets interface', () => {
