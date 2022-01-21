@@ -50,12 +50,12 @@ describe("Can search for a trip", () => {
     });
 
     it("selects seating class", () => {
-        cy.get("#option1Label").click().should("have.class", "active"); // TODO: add validation
+        cy.get("#option1Label").click().should("have.class", "active");
     });
 
-    it("redirects to confirmation page", () => {
+    it("redirects to confirmation page upon submit", () => {
         cy.get("p > .btn").click();
-        cy.url().should("contain", "/bilheteira/comprar"); // TODO: validate locations
+        cy.url().should("contain", "/bilheteira/comprar");
 
         // Validation of outward schedule
         cy.get(
@@ -68,7 +68,7 @@ describe("Can search for a trip", () => {
             ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(1) > :nth-child(3)"
         ).should("contain", arrivalStation);
 
-        // Validation of inward schedule
+        // Validation of return schedule
         cy.get(
             ".info-geral > .row > .col-md-12 > .table > tbody > :nth-child(2) > :nth-child(1)"
         ).should("contain", `Inward: ${travelDate(returnDelay)}`);
@@ -80,7 +80,7 @@ describe("Can search for a trip", () => {
         ).should("contain", departureStation);
     });
 
-    it("cancels order and redirects to Buy Tickets page", () => {
+    it("cancels order and redirects to Buy Tickets page with previous data visible", () => {
         cy.get("#exitButton").click();
         cy.url().should("contain", "/passageiros/en/buy-tickets");
 
