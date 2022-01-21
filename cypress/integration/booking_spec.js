@@ -1,11 +1,13 @@
 /// <reference types='cypress' />
 
-const departureStation = 'Lagos';
-const arrivalStation = 'Porto - Campanha';
-const departDateElement = '#datepicker-first_table';
-const returnDateElement = '#datepicker-second_table';
-const departureDelay = 3;
-const returnDelay = 6;
+import { 
+  departureStation,
+  arrivalStation,
+  departDateElement,
+  returnDateElement,
+  departureDelay,
+  returnDelay
+} from "../constants/constants.js"
 
 function travelDate(input) {
   const date = new Date();
