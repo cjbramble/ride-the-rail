@@ -13,7 +13,6 @@ function travelDate(input) {
     const departureDateObj = new Date(departureDate);
     const departureISOstring = departureDateObj.toISOString();
     return departureISOstring.slice(0, 10);
-  }
+}
 
-  export default travelDate
-  
+export default travelDate
