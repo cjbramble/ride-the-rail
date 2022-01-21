@@ -81,7 +81,8 @@ describe('Can search for a trip', () => {
       .click();
 
     cy
-      .get('[data-original-index="2"] > a > .text')
+      .get('.text')
+      .contains('3 Passengers')
       .click();
   });
 
