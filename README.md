@@ -1,3 +1,5 @@
+[![cjbramble](https://circleci.com/github/cjbramble/ride-the-rail.svg?style=svg)](https://app.circleci.com/pipelines/github/cjbramble/ride-the-rail)
+
 # Ride the Rail!
 
 A Cypress test automation demo.
