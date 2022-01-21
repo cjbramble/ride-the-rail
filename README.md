@@ -1,4 +1,6 @@
-# Comboios de Portugal
+# Ride the Rail!
+
+A Cypress test automation demo.
 
 ---
 
@@ -7,13 +9,13 @@
 Clone repository with SSH:
 
 ```sh
-git clone git@github.com:cjbramble/apprentice.git
+git clone git@github.com:cjbramble/ride-the-rail.git
 ```
 
 Switch to root of project:
 
 ```sh
-cd apprentice
+cd ride-the-rail
 ```
 
 Install package:
