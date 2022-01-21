@@ -36,7 +36,7 @@ Test install succeded:
 
 ## Configuration
 
-In `cypress.json` the `baseUrl` is currently set to <replace>.
+In `cypress.json` the `baseUrl` is currently set to `"https://www.cp.pt/passageiros/en"`.
 
 To override or use additional configurations create a separate `cypress.env.json`.
 
@@ -44,7 +44,7 @@ Example:
 
 ```json
 {
-    "baseUrl": "<replace>"
+    "baseUrl": "https://www.cp.pt/passageiros/en"
 }
 ```
 
