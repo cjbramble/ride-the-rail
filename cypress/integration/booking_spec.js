@@ -89,7 +89,8 @@ describe('Can search for a trip', () => {
   it('redirects to confirmation page upon submit', () => {
       
     cy
-      .get('p > .btn')
+      .get('.btn')
+      .contains('Submit')
       .click();
     
     // Validates redirect url
@@ -104,28 +105,28 @@ describe('Can search for a trip', () => {
 
     // Validation of outward schedule
     cy
-      .get('.info-geral > .row > .col-md-12 > .table > tbody > :nth-child(1) > :nth-child(1)')
+      .get(':nth-child(1)')
       .should('contain', `Outward: ${travelDate(departureDelay)}`);
     
     cy
-      .get('.info-geral > .row > .col-md-12 > .table > tbody > :nth-child(1) > :nth-child(2)')
+      .get(':nth-child(2)')
       .should('contain', departureStation);
     
     cy
-      .get('.info-geral > .row > .col-md-12 > .table > tbody > :nth-child(1) > :nth-child(3)')
+      .get(':nth-child(3)')
       .should('contain', arrivalStation);
 
     // Validation of return schedule
     cy
-      .get('.info-geral > .row > .col-md-12 > .table > tbody > :nth-child(2) > :nth-child(1)')
+      .get(':nth-child(1)')
       .should('contain', `Inward: ${travelDate(returnDelay)}`);
     
     cy
-      .get('.info-geral > .row > .col-md-12 > .table > tbody > :nth-child(2) > :nth-child(2)')
+      .get(':nth-child(2)')
       .should('contain', arrivalStation);
     
     cy
-      .get('.info-geral > .row > .col-md-12 > .table > tbody > :nth-child(2) > :nth-child(3)')
+      .get(':nth-child(3)')
       .should('contain', departureStation);
   });
 
