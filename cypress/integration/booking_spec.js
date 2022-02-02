@@ -9,141 +9,76 @@ import {
   returnDelay
 } from '../exports/constants.js'
 
+import BuyTicketsPage from './PageObject/BuyTicketsPage.js';
+import HomePage from './PageObject/HomePage.js';
+import TicketOfficePage from './PageObject/TicketOfficePage.js';
 import travelDate from '../exports/functions.js'
 
-describe('Can search for a trip', () => {
-  it('redirects to Buy Tickets interface', () => {
+describe('Can search for a trip, confirm selections, cancel trip, and validate selections were maintained', () => {
+  it('allows trip details selections and persists after cancelling', () => {
+    const homePage = new HomePage();
+    const buyTickets = new BuyTicketsPage();
+    const ticketOffice = new TicketOfficePage();
+
+    // Root of project (english)
+    homePage.loadHomePage();
+
+    // Navigate to Buy Tickets interface
+    buyTickets.navigateToBuyTickets();
+    cy.url().should('contain', '/passageiros/en/buy-tickets');
+
+    // Select departure station
+    buyTickets.selectDepartureStation();
+    cy.get(':nth-child(3)').should('contain.text', departureStation);
+    
+    // Select arrival station
+    buyTickets.selectArrivalStation();
+    cy.get(':nth-child(4)').should('contain.text', arrivalStation);
+
+    cy.pause()
+    
+    // Select departure date from datepicker TODO: validate selected date
+    buyTickets.selectDepartureDatePicker();
+    cy.setTravelDate(departDateElement, departureDelay);
+    
+    // Select arrival date from datepicker TODO: validate selected date
+    buyTickets.selectArrivalDatePicker();
+    cy.setTravelDate(returnDateElement, returnDelay);
       
-    cy
-      .visit('/');
+    // Select seat class
+    buyTickets.selectSeatClass();
+    cy.get('#option1Label').should('have.class', 'active');
 
-    cy
-      .get('.title-menu')
-      .contains('Tickets')
-      .click();
-
-    // Validates redirect url
-    cy
-      .url()
-      .should('contain', '/passageiros/en/buy-tickets');
-  });
-
-  it('selects departure and arrival locations', () => {
+    // Select number of passengers
+    buyTickets.selectPassengerCountDropdown();
+    cy.get('.filter-option').should('contain.text', '3 Passengers ')
       
-    cy
-      .get('[name="textBoxPartida"]')
-      .type(departureStation)
-      .click();
+    // Submit buy tickets and redirects to Ticket Office
+    buyTickets.submitsToTicketOffice();
+    cy.url().should('contain', '/bilheteira/comprar');
     
-    cy
-      .get(':nth-child(3)')
-      .should('contain.text', departureStation);
-    
-    cy
-      .get('[name="textBoxChegada"]')
-      .type(arrivalStation)
-      .click();
-    
-    cy
-      .get(':nth-child(4)')
-      .should('contain.text', arrivalStation);
-  });
+    // Validate the number of passengers
+    cy.get('.reserveDiv').should('contain.text', '3 Passenger(s)');
 
-  it('selects departure and arrival dates', () => {
-      
-    cy
-      .get('[name="departDate"]')
-      .click();
-    
-    cy
-      .setTravelDate(departDateElement, departureDelay);
-    
-    cy
-      .get('[name="returnDate"]')
-      .click();
-    
-    cy
-      .setTravelDate(returnDateElement, returnDelay);
-  });
-
-  it('selects seating class', () => {
-      
-    cy
-      .get('#option1Label')
-      .click()
-      .should('have.class', 'active');
-  });
-
-  it('selects number of passengers', () => {
-      
-    cy
-      .get('.filter-option')
-      .click();
-
-    cy
-      .get('.text')
-      .contains('3 Passengers')
-      .click();
-  });
-
-  it('redirects to confirmation page upon submit', () => {
-      
-    cy
-      .get('.btn')
-      .contains('Submit')
-      .click();
-    
-    // Validates redirect url
-    cy
-      .url()
-      .should('contain', '/bilheteira/comprar');
-    
-    // Validates the number of passengers
-    cy
-      .get('.reserveDiv')
-      .should('contain.text', '3 Passenger(s)')
+    // Validate the seating class
+    cy.get('div').should('contain.text', '- 1st Class / Comfort');
 
     // Validation of outward schedule
-    cy
-      .get(':nth-child(1)')
-      .should('contain', `Outward: ${travelDate(departureDelay)}`);
-    
-    cy
-      .get(':nth-child(2)')
-      .should('contain', departureStation);
-    
-    cy
-      .get(':nth-child(3)')
-      .should('contain', arrivalStation);
+    cy.get(':nth-child(1)').should('contain', `Outward: ${travelDate(departureDelay)}`);
+    cy.get(':nth-child(2)').should('contain', departureStation);
+    cy.get(':nth-child(3)').should('contain', arrivalStation);
 
     // Validation of return schedule
-    cy
-      .get(':nth-child(1)')
-      .should('contain', `Inward: ${travelDate(returnDelay)}`);
-    
-    cy
-      .get(':nth-child(2)')
-      .should('contain', arrivalStation);
-    
-    cy
-      .get(':nth-child(3)')
-      .should('contain', departureStation);
-  });
-
-  it('cancels order and redirects to Buy Tickets page with previous data visible', () => {
+    cy.get(':nth-child(1)').should('contain', `Inward: ${travelDate(returnDelay)}`);
+    cy.get(':nth-child(2)').should('contain', arrivalStation);
+    cy.get(':nth-child(3)').should('contain', departureStation);
       
-    cy
-      .get('#exitButton')
-      .click();
-    
-    // Validates redirect url
-    cy
-      .url()
-      .should('contain', '/passageiros/en/buy-tickets');
+    // Cancel Ticket Office order
+    ticketOffice.cancelOrder();
+    cy.url().should('contain', '/passageiros/en/buy-tickets');
 
     // Validates times, stations, class, and passenger
-    cy
-      .document()
+    cy.document()
       .should('contain.text', `departEscapeXml = '${departureStation}';`)
       .should('contain.text', `arrivalEscapeXml = '${arrivalStation}';`)
       .should('contain.text', `departDateEscapeXml = '${travelDate(departureDelay)}';`)
