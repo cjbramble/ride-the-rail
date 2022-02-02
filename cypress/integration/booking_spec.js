@@ -15,7 +15,7 @@ import TicketOfficePage from './PageObject/TicketOfficePage.js';
 import travelDate from '../exports/functions.js'
 
 describe('Can search for a trip, confirm selections, cancel trip, and validate selections were maintained', () => {
-  it('allows trip details selections and persists after cancelling', () => {
+  it('persists selections from Buy Tickets to Ticket Office and back to Buy Tickets', () => {
     const homePage = new HomePage();
     const buyTickets = new BuyTicketsPage();
     const ticketOffice = new TicketOfficePage();
