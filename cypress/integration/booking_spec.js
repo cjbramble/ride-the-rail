@@ -40,6 +40,7 @@ describe('Can search for a trip, confirm selections, cancel trip, and validate s
     // Select departure date from datepicker TODO: validate selected date
     buyTickets.selectDepartureDatePicker();
     cy.setTravelDate(departDateElement, departureDelay);
+    cy.get('#datepicker-first')
     
     // Select arrival date from datepicker TODO: validate selected date
     buyTickets.selectArrivalDatePicker();
