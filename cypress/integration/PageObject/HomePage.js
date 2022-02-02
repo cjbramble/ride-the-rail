@@ -1,9 +1,8 @@
 class HomePage {
-    loadHomePage() {
-      cy.visit('/');
-      return this
-    }
+  loadHomePage() {
+    cy.visit('/');
+    return this
   }
+}
   
-  export default HomePage
-  
+export default HomePage
