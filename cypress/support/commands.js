@@ -1,10 +1,6 @@
 /// <reference types='cypress' />
 
-import {
-    dayOfMonth,
-    year,
-    month
-} from '../exports/constants.js'
+import { dayOfMonth, year, month } from "../exports/constants.js";
 
 Cypress.Commands.add("setTravelDate", (element, input) => {
     const departureDay = dayOfMonth + input;

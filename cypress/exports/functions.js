@@ -1,10 +1,6 @@
 /// <reference types='cypress' />
 
-import {
-    dayOfMonth,
-    year,
-    month
-} from '../exports/constants.js'
+import { dayOfMonth, year, month } from "../exports/constants.js";
 
 function travelDate(input) {
     const departureDay = dayOfMonth + input;
@@ -17,4 +13,4 @@ function travelDate(input) {
     return departureISOstring.slice(0, 10);
 }
 
-export default travelDate
+export default travelDate;
